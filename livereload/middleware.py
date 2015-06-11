@@ -12,7 +12,8 @@ class LiveReloadScript(object):
     """
 
     def process_response(self, request, response):
-        if (not response.status_code == 200 or
+        if (not response.status_code in (200, 404, 500) or 
+            not 'text/html' in response.get('content-type', '') or
             not '<html' in response.content):
              return response
 
